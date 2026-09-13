@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Patient {
+  id               String   @id @default(cuid())
+  patientId        String   @unique // PT-000001 format
+  name             String
+  mobile           String
+  registrationDate DateTime
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  visits Visit[]
+}
+
+model Visit {
+  id                String   @id @default(cuid())
+  patientId         String
+  visitNumber       Int
+  visitDate         DateTime
+  medicines         String
+  dailySerialNumber Int?
+  dateString        String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@unique([dateString, dailySerialNumber])
+  @@index([patientId])
+}
+
+model DailySequence {
+  id        String   @id @default(cuid())
+  date      String   @unique // Format: "YYYY-MM-DD"
+  value     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
