@@ -116,7 +116,7 @@ export function ExistingPatientDialog({ open, onOpenChange }: ExistingPatientDia
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="sm:max-w-2xl h-[80vh] sm:h-auto flex flex-col">
+        <DialogContent className="sm:max-w-2xl max-h-[90dvh] overflow-y-auto flex flex-col">
           <DialogHeader>
             <DialogTitle>Existing Patient</DialogTitle>
             <DialogDescription>
@@ -125,8 +125,8 @@ export function ExistingPatientDialog({ open, onOpenChange }: ExistingPatientDia
           </DialogHeader>
 
           {!selectedPatient ? (
-            <div className="flex flex-col flex-1 gap-4 overflow-hidden mt-4">
-              <div className="relative">
+            <div className="flex flex-col flex-1 gap-4 mt-4">
+              <div className="relative shrink-0">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                 <Input 
                   placeholder="Search by patient ID, name or mobile number..." 
@@ -137,7 +137,7 @@ export function ExistingPatientDialog({ open, onOpenChange }: ExistingPatientDia
                 />
               </div>
 
-              <ScrollArea className="flex-1 -mx-4 px-4 border-t pt-4">
+              <div className="flex-1 border-t pt-4">
                 {isSearching ? (
                   <div className="text-center py-8 text-sm text-muted-foreground">Searching...</div>
                 ) : searchResults.length > 0 ? (
@@ -183,51 +183,50 @@ export function ExistingPatientDialog({ open, onOpenChange }: ExistingPatientDia
                     Enter at least 2 characters to search.
                   </div>
                 )}
-              </ScrollArea>
+              </div>
             </div>
           ) : (
-            <div className="flex flex-col flex-1 overflow-hidden mt-2">
+            <div className="flex flex-col flex-1 mt-2">
               <Button 
                 variant="ghost" 
                 size="sm" 
                 onClick={handleBackToSearch}
-                className="self-start -ml-2 mb-4 text-muted-foreground hover:text-foreground"
+                className="self-start -ml-2 mb-4 text-muted-foreground hover:text-foreground shrink-0"
               >
                 <ChevronLeft className="h-4 w-4 mr-1" />
                 Back to Search
               </Button>
 
-              <ScrollArea className="flex-1 pr-4">
-                <div className="space-y-6">
-                  {/* Selected Patient Summary */}
-                  <div className="bg-primary/5 border border-primary/30 rounded-2xl p-6 relative overflow-hidden shadow-sm">
-                    <CheckCircle2 className="absolute -top-4 -right-4 h-24 w-24 text-primary opacity-10" />
-                    <h3 className="font-semibold text-xl text-primary mb-5 font-[family-name:--font-playfair] italic">Selected Patient</h3>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 text-sm relative z-10">
-                      <div className="bg-background/60 p-3 rounded-xl border border-primary/10 shadow-sm">
-                        <p className="text-muted-foreground text-xs font-medium uppercase tracking-wider mb-1.5">Patient ID</p>
-                        <p className="font-semibold text-base text-foreground">{selectedPatient.patientId}</p>
-                      </div>
-                      <div className="bg-background/60 p-3 rounded-xl border border-primary/10 shadow-sm">
-                        <p className="text-muted-foreground text-xs font-medium uppercase tracking-wider mb-1.5">Name</p>
-                        <p className="font-semibold text-base text-foreground truncate" title={selectedPatient.name}>{selectedPatient.name}</p>
-                      </div>
-                      <div className="bg-background/60 p-3 rounded-xl border border-primary/10 shadow-sm">
-                        <p className="text-muted-foreground text-xs font-medium uppercase tracking-wider mb-1.5">Mobile</p>
-                        <p className="font-semibold text-base text-foreground">{selectedPatient.mobile || "N/A"}</p>
-                      </div>
-                      <div className="bg-background/60 p-3 rounded-xl border border-primary/10 shadow-sm">
-                        <p className="text-muted-foreground text-xs font-medium uppercase tracking-wider mb-1.5">Total Visits</p>
-                        <p className="font-semibold text-base text-foreground">{selectedPatient._count?.visits || 0}</p>
-                      </div>
+              <div className="space-y-6">
+                {/* Selected Patient Summary */}
+                <div className="bg-primary/5 border border-primary/30 rounded-2xl p-6 relative overflow-hidden shadow-sm">
+                  <CheckCircle2 className="absolute -top-4 -right-4 h-24 w-24 text-primary opacity-10" />
+                  <h3 className="font-semibold text-xl text-primary mb-5 font-[family-name:--font-playfair] italic">Selected Patient</h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-sm relative z-10">
+                    <div className="bg-background/60 p-3 rounded-xl border border-primary/10 shadow-sm">
+                      <p className="text-muted-foreground text-xs font-medium uppercase tracking-wider mb-1.5">Patient ID</p>
+                      <p className="font-semibold text-base text-foreground">{selectedPatient.patientId}</p>
+                    </div>
+                    <div className="bg-background/60 p-3 rounded-xl border border-primary/10 shadow-sm">
+                      <p className="text-muted-foreground text-xs font-medium uppercase tracking-wider mb-1.5">Name</p>
+                      <p className="font-semibold text-base text-foreground truncate" title={selectedPatient.name}>{selectedPatient.name}</p>
+                    </div>
+                    <div className="bg-background/60 p-3 rounded-xl border border-primary/10 shadow-sm">
+                      <p className="text-muted-foreground text-xs font-medium uppercase tracking-wider mb-1.5">Mobile</p>
+                      <p className="font-semibold text-base text-foreground">{selectedPatient.mobile || "N/A"}</p>
+                    </div>
+                    <div className="bg-background/60 p-3 rounded-xl border border-primary/10 shadow-sm">
+                      <p className="text-muted-foreground text-xs font-medium uppercase tracking-wider mb-1.5">Total Visits</p>
+                      <p className="font-semibold text-base text-foreground">{selectedPatient._count?.visits || 0}</p>
                     </div>
                   </div>
+                </div>
 
-                  {/* New Visit Form */}
-                  <form id="existing-visit-form" onSubmit={handleSubmit} className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="visitDate">Visit Date</Label>
-                      <Controller
+                {/* New Visit Form */}
+                <form id="existing-visit-form" onSubmit={handleSubmit} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="visitDate">Visit Date</Label>
+                    <Controller
                         control={form.control}
                         name="visitDate"
                         render={({ field }) => (
@@ -281,7 +280,6 @@ export function ExistingPatientDialog({ open, onOpenChange }: ExistingPatientDia
                     </div>
                   </form>
                 </div>
-              </ScrollArea>
 
               <div className="flex items-center justify-end gap-2 pt-6 border-t border-border/60 mt-auto">
                 <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={isPending} className="h-11 px-6 rounded-xl">

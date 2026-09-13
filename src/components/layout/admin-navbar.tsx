@@ -27,7 +27,7 @@ export async function AdminNavbar() {
 
   return (
     <header className="flex h-[88px] shrink-0 items-center justify-between px-6 lg:px-8 bg-background/90 backdrop-blur-md border-b border-border/60 sticky top-0 z-30">
-      <div className="flex items-center gap-2 md:gap-4">
+      <div className="flex items-center gap-2 md:gap-4 flex-1 min-w-0">
         <MobileSidebar />
         <AdminBreadcrumb />
       </div>
