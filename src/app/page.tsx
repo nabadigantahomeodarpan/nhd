@@ -30,12 +30,16 @@ export default async function LandingPage() {
                 sizes="40px"
               />
             </div>
-            <span className="font-semibold text-base sm:text-lg tracking-tight hidden sm:block">
-              Nabadiganta Homeo Darpan
-            </span>
-            <span className="font-semibold text-base tracking-tight sm:hidden">
-              Nabadiganta
-            </span>
+            <div className="relative h-6 sm:h-8 w-48 sm:w-64 ml-1">
+              <Image 
+                src="/text-logo.webp" 
+                alt="Nabadiganta Homeo Darpan" 
+                fill
+                className="object-contain object-left"
+                sizes="(max-width: 640px) 192px, 256px"
+                priority
+              />
+            </div>
           </div>
 
           <nav className="hidden md:flex items-center gap-6 lg:gap-8">
@@ -224,8 +228,8 @@ export default async function LandingPage() {
             
             <SlideRight className="order-2 lg:order-1 relative h-[350px] md:h-[450px] lg:h-[550px] rounded-3xl overflow-hidden border border-border/50 bg-muted flex items-center justify-center">
               {/* Optional: We can use a different image or a solid pattern here. For now, we reuse the hero image as a placeholder */}
-              <Image src="/hero-bg.webp" alt="Clinic Environment" fill className="object-cover opacity-80" />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
+              <Image src="/about-bg.webp" alt="Clinic Environment" fill className="object-cover opacity-80" />
+              {/* <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" /> */}
             </SlideRight>
 
             <StaggerContainer className="order-1 lg:order-2 space-y-6 md:space-y-8">

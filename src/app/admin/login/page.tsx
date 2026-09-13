@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function LoginPage() {
   return (
-    <main className="flex min-h-screen items-center justify-center p-4 sm:p-6 bg-[url('/hero-bg.webp')] bg-cover bg-center relative">
+    <main className="flex min-h-screen items-center justify-center p-4 sm:p-6 bg-[url('/login-bg.webp')] bg-cover bg-center relative">
       <div className="absolute inset-0 bg-background/80 backdrop-blur-sm z-0" />
       
       <div className="absolute top-4 left-4 sm:top-8 sm:left-8 z-20">
