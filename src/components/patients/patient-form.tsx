@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { patientSchema, PatientInput } from "@/schemas/patient-schema";
@@ -13,7 +14,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Controller } from "react-hook-form";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { cn } from "cn";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { cn } from "@/lib/utils";
 
 interface PatientFormProps {
   initialData?: Partial<PatientInput>;
@@ -23,6 +25,8 @@ interface PatientFormProps {
 }
 
 export function PatientForm({ initialData, onSubmit, isPending, onCancel }: PatientFormProps) {
+  const [visitToDelete, setVisitToDelete] = useState<number | null>(null);
+
   const form = useForm<PatientInput>({
     resolver: zodResolver(patientSchema),
     defaultValues: initialData || {
@@ -149,7 +153,7 @@ export function PatientForm({ initialData, onSubmit, isPending, onCancel }: Pati
                         variant="ghost"
                         size="icon"
                         className="text-destructive h-8 w-8 hover:bg-destructive/10 hover:text-destructive"
-                        onClick={() => remove(index)}
+                        onClick={() => setVisitToDelete(index)}
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>
@@ -227,6 +231,26 @@ export function PatientForm({ initialData, onSubmit, isPending, onCancel }: Pati
           {isPending ? "Saving..." : "Save Patient"}
         </Button>
       </div>
+
+      <Dialog open={visitToDelete !== null} onOpenChange={(open) => !open && setVisitToDelete(null)}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Delete Visit</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to remove this visit from the patient record? This action cannot be undone once saved.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex justify-end gap-3 pt-4">
+            <Button variant="outline" onClick={() => setVisitToDelete(null)}>Cancel</Button>
+            <Button variant="destructive" onClick={() => {
+              if (visitToDelete !== null) {
+                remove(visitToDelete);
+                setVisitToDelete(null);
+              }
+            }}>Delete</Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </form>
   );
 }
