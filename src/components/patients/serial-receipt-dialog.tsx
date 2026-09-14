@@ -71,9 +71,9 @@ export function SerialReceiptDialog({ open, onOpenChange, data }: SerialReceiptD
             className="border-2 border-dashed border-border rounded-lg p-6 w-64 flex flex-col items-center bg-card text-card-foreground font-mono"
           >
             <h3 className="font-bold text-lg text-center leading-tight mb-4">
-              NABADIGANTA HOMEO
+              NABADIGANTA
               <br />
-              <span className="text-sm font-normal">HOMEOPATHY</span>
+              <span className="text-sm font-normal">HOMOEO DARPAN</span>
             </h3>
             
             <div className="w-full text-sm space-y-1 mb-4 border-b pb-4">
