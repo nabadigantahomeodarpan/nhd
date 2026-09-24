@@ -2,7 +2,7 @@ import { getPatientById } from "@/lib/patients/patient-service";
 import { notFound } from "next/navigation";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Calendar, Phone, User } from "lucide-react";
+import { ArrowLeft, Calendar, Phone, User, Trash2, CalendarClock, VenusAndMars } from "lucide-react";
 import Link from "next/link";
 import { EditPatientDialog } from "@/components/patients/edit-patient-dialog";
 import { DeletePatientDialog } from "@/components/patients/delete-patient-dialog";
@@ -33,6 +33,8 @@ export default async function PatientProfilePage({ params, searchParams }: Patie
     id: patient.id,
     name: patient.name,
     mobile: patient.mobile,
+    age: patient.age || "",
+    gender: patient.gender || "",
     registrationDate: patient.registrationDate,
     visits: patient.visits.map(v => ({
       id: v.id,
@@ -52,8 +54,8 @@ export default async function PatientProfilePage({ params, searchParams }: Patie
 
       <div className="bg-card rounded-2xl border border-border/60 shadow-sm flex flex-col p-4 sm:p-6 md:p-8 space-y-6 md:space-y-8">
         {/* Patient Details Header */}
-        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-5 sm:gap-6">
-          <div className="space-y-4">
+        <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-5 sm:gap-6">
+          <div className="space-y-4 flex-1">
             <div>
               <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight text-primary font-[family-name:--font-playfair] italic break-words">
                 {patient.name}
@@ -63,7 +65,7 @@ export default async function PatientProfilePage({ params, searchParams }: Patie
               </p>
             </div>
             
-            <div className="grid grid-cols-1 sm:flex sm:flex-wrap items-start sm:items-center gap-3 sm:gap-4 md:gap-6 text-sm md:text-base text-muted-foreground mt-2">
+            <div className="grid grid-cols-1 sm:flex sm:flex-wrap items-start sm:items-center gap-2 sm:gap-3 xl:gap-4 text-sm md:text-base text-muted-foreground mt-2">
               <div className="flex items-center gap-2 bg-primary/5 px-3 py-2 sm:py-1.5 rounded-lg border border-primary/10 w-full sm:w-auto">
                 <User className="h-4 w-4 text-primary shrink-0" />
                 <span className="font-semibold text-foreground truncate">{patient.patientId}</span>
@@ -73,22 +75,40 @@ export default async function PatientProfilePage({ params, searchParams }: Patie
                 <span className="font-medium text-foreground truncate">{patient.mobile || "N/A"}</span>
               </div>
               <div className="flex items-center gap-2 bg-muted/50 px-3 py-2 sm:py-1.5 rounded-lg border border-border/60 w-full sm:w-auto">
+                <CalendarClock className="h-4 w-4 text-foreground/70 shrink-0" />
+                <span className="font-medium text-foreground/70 truncate text-xs uppercase tracking-wider">Age</span>
+                <span className="font-medium text-foreground truncate">{patient.age || "N/A"}</span>
+              </div>
+              <div className="flex items-center gap-2 bg-muted/50 px-3 py-2 sm:py-1.5 rounded-lg border border-border/60 w-full sm:w-auto">
+                <VenusAndMars className="h-4 w-4 text-foreground/70 shrink-0" />
+                <span className="font-medium text-foreground/70 truncate text-xs uppercase tracking-wider">Sex</span>
+                <span className="font-medium text-foreground truncate">{patient.gender || "N/A"}</span>
+              </div>
+              <div className="flex items-center gap-2 bg-muted/50 px-3 py-2 sm:py-1.5 rounded-lg border border-border/60 w-full sm:w-auto">
                 <Calendar className="h-4 w-4 text-foreground/70 shrink-0" />
                 <span className="font-medium text-foreground truncate">{format(patient.registrationDate, "dd MMMM yyyy")}</span>
               </div>
             </div>
           </div>
           
-          <div className="grid grid-cols-2 sm:flex sm:flex-row sm:items-center gap-3 w-full sm:w-auto pt-2 sm:pt-0">
-            <div className="w-full [&_button]:w-full">
+          <div className="flex flex-row items-center gap-3 w-full sm:w-auto pt-2 sm:pt-0">
+            <div className="flex-1 sm:flex-none">
               <EditPatientDialog 
                 patientId={patient.id} 
                 initialData={initialData} 
                 defaultOpen={isEditMode}
               />
             </div>
-            <div className="w-full [&_button]:w-full">
-              <DeletePatientDialog patientId={patient.id} />
+            <div className="flex-1 sm:flex-none">
+              <DeletePatientDialog 
+                patientId={patient.id} 
+                trigger={
+                  <Button variant="outline" className="w-full h-11 px-4 rounded-xl border-destructive/20 text-destructive hover:bg-destructive/10 hover:border-destructive/30 hover:text-destructive shadow-sm transition-all flex items-center justify-center gap-2">
+                    <Trash2 className="h-4 w-4" />
+                    <span>Delete</span>
+                  </Button>
+                }
+              />
             </div>
           </div>
         </div>

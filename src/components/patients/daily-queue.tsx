@@ -25,6 +25,8 @@ interface DailyQueueProps {
       patientId: string;
       name: string;
       mobile: string;
+      age: string | null;
+      gender: string | null;
       registrationDate: Date;
     };
   }[];
@@ -44,15 +46,17 @@ export function DailyQueue({ queue }: DailyQueueProps) {
 
   return (
     <div className="rounded-xl border border-border/60 shadow-sm overflow-hidden">
-      <Table className="w-full min-w-[600px] text-xs md:text-sm">
+      <Table className="w-full min-w-[700px] text-xs md:text-sm">
         <TableHeader className="bg-muted/50">
           <TableRow className="hover:bg-transparent">
-            <TableHead className="font-semibold text-foreground/80 whitespace-nowrap w-1/6 text-center">Token Number</TableHead>
-            <TableHead className="font-semibold text-foreground/80 whitespace-nowrap w-1/6">Patient ID</TableHead>
-            <TableHead className="font-semibold text-foreground/80 whitespace-nowrap w-1/6">Name</TableHead>
-            <TableHead className="font-semibold text-foreground/80 whitespace-nowrap w-1/6">Mobile Number</TableHead>
-            <TableHead className="font-semibold text-foreground/80 whitespace-nowrap w-1/6">Registered</TableHead>
-            <TableHead className="font-semibold text-foreground/80 whitespace-nowrap w-1/6 text-center">Action</TableHead>
+            <TableHead className="font-semibold text-foreground/80 whitespace-nowrap w-[8%] text-center">Token No.</TableHead>
+            <TableHead className="font-semibold text-foreground/80 whitespace-nowrap w-[10%]">Patient ID</TableHead>
+            <TableHead className="font-semibold text-foreground/80 whitespace-nowrap w-[20%]">Name</TableHead>
+            <TableHead className="font-semibold text-foreground/80 whitespace-nowrap w-[12%]">Mobile No.</TableHead>
+            <TableHead className="font-semibold text-foreground/80 whitespace-nowrap w-[8%] text-center">Age</TableHead>
+            <TableHead className="font-semibold text-foreground/80 whitespace-nowrap w-[7%] text-center">Sex</TableHead>
+            <TableHead className="font-semibold text-foreground/80 whitespace-nowrap w-[10%] text-center">Registered</TableHead>
+            <TableHead className="font-semibold text-foreground/80 whitespace-nowrap w-[25%] text-center">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -74,7 +78,9 @@ export function DailyQueue({ queue }: DailyQueueProps) {
               <TableCell className="truncate">
                 {visit.patient.mobile || "-"}
               </TableCell>
-              <TableCell className="truncate">
+              <TableCell className="truncate text-center">{visit.patient.age || "-"}</TableCell>
+              <TableCell className="truncate text-center">{visit.patient.gender || "-"}</TableCell>
+              <TableCell className="truncate text-center">
                 {/* @ts-ignore */}
                 {visit.patient.registrationDate ? new Date(visit.patient.registrationDate).toLocaleDateString() : "-"}
               </TableCell>

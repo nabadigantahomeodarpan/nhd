@@ -11,11 +11,23 @@ model Patient {
   patientId        String   @unique // PT-000001 format
   name             String
   mobile           String
+  age              String?
+  gender           String?
   registrationDate DateTime
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 
-  visits Visit[]
+  visits       Visit[]
+  prescription Prescription?
+}
+
+model Prescription {
+  id        String   @id @default(cuid())
+  patientId String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
 }
 
 model Visit {

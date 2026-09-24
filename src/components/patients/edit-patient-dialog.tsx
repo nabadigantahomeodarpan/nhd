@@ -54,9 +54,9 @@ export function EditPatientDialog({ patientId, initialData, trigger, defaultOpen
       {trigger ? (
         <DialogTrigger render={trigger as React.ReactElement} />
       ) : (
-        <DialogTrigger render={<Button variant="outline" className="gap-2 h-11 px-5 rounded-xl border-border/60 shadow-sm hover:bg-primary/5 hover:border-primary/20 hover:text-primary transition-all" />}>
+        <DialogTrigger render={<Button variant="outline" className="w-full gap-2 h-11 px-5 rounded-xl border-border/60 shadow-sm hover:bg-primary/5 hover:border-primary/20 hover:text-primary transition-all flex items-center justify-center" />}>
           <Pencil className="h-4 w-4" />
-          <span className="hidden sm:inline-block">Edit Patient</span>
+          <span>Edit Patient</span>
         </DialogTrigger>
       )}
       <DialogContent className="sm:max-w-2xl">

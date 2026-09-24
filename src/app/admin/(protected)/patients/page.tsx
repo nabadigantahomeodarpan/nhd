@@ -39,6 +39,8 @@ export default async function PatientsPage({ searchParams }: PatientsPageProps) 
     id: editPatient.id,
     name: editPatient.name,
     mobile: editPatient.mobile,
+    age: editPatient.age || undefined,
+    gender: editPatient.gender || undefined,
     registrationDate: editPatient.registrationDate,
     visits: editPatient.visits.map(v => ({
       id: v.id,

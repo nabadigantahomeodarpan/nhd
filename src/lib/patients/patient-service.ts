@@ -39,6 +39,8 @@ export async function createPatientWithVisits(data: PatientInput) {
         patientId: newPatientId,
         name: data.name,
         mobile: data.mobile || "",
+        age: data.age || null,
+        gender: data.gender || null,
         registrationDate: data.registrationDate,
         visits: {
           create: data.visits.map((visit, index) => ({
@@ -67,6 +69,8 @@ export async function updatePatientWithVisits(id: string, data: PatientInput) {
       data: {
         name: data.name,
         mobile: data.mobile || "",
+        age: data.age || null,
+        gender: data.gender || null,
         registrationDate: data.registrationDate,
       },
     });
@@ -121,7 +125,7 @@ export async function updatePatientWithVisits(id: string, data: PatientInput) {
   });
 }
 
-export async function getPatients(query = "", skip = 0, take = 20) {
+export async function getPatients(query = "", skip = 0, take?: number) {
   const where: Prisma.PatientWhereInput = query
     ? {
         OR: [
@@ -137,12 +141,13 @@ export async function getPatients(query = "", skip = 0, take = 20) {
       where,
       orderBy: { createdAt: "desc" },
       skip,
-      take,
+      ...(take ? { take } : {}),
       include: {
         visits: {
           orderBy: { visitDate: "desc" },
           take: 1,
-        }
+        },
+        prescription: true,
       }
     }),
     prisma.patient.count({ where }),

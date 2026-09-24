@@ -15,6 +15,7 @@ import { Controller } from "react-hook-form";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 
 interface PatientFormProps {
@@ -32,6 +33,8 @@ export function PatientForm({ initialData, onSubmit, isPending, onCancel }: Pati
     defaultValues: initialData || {
       name: "",
       mobile: "",
+      age: "",
+      gender: "",
       registrationDate: new Date(),
       visits: [
         {
@@ -117,6 +120,50 @@ export function PatientForm({ initialData, onSubmit, isPending, onCancel }: Pati
               />
               {form.formState.errors.mobile && (
                 <p className="text-sm text-destructive">{form.formState.errors.mobile.message}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="age">Age (Optional)</Label>
+              <Input
+                id="age"
+                placeholder="e.g. 35 or 10 months"
+                {...form.register("age")}
+              />
+              {form.formState.errors.age && (
+                <p className="text-sm text-destructive">{form.formState.errors.age.message}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="gender">Sex (Optional)</Label>
+              <Controller
+                control={form.control}
+                name="gender"
+                render={({ field }) => (
+                  <Select onValueChange={field.onChange} value={field.value || undefined}>
+                    <SelectTrigger className="w-full !h-11 rounded-xl px-4 bg-background border-input hover:bg-muted/50 transition-colors">
+                      <SelectValue placeholder="Select sex" />
+                    </SelectTrigger>
+                    <SelectContent className="rounded-xl p-1 border-border/60 shadow-lg">
+                      <SelectItem value="Male" className="py-2.5 px-3 rounded-lg cursor-pointer hover:bg-muted focus:bg-muted transition-colors">
+                        <div className="flex items-center gap-2.5">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-500"><circle cx="10" cy="14" r="5"/><line x1="13.54" y1="10.46" x2="21" y2="3"/><line x1="16" y1="3" x2="21" y2="3"/><line x1="21" y1="8" x2="21" y2="3"/></svg>
+                          <span className="font-medium text-foreground">Male</span>
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="Female" className="py-2.5 px-3 rounded-lg cursor-pointer hover:bg-muted focus:bg-muted transition-colors">
+                        <div className="flex items-center gap-2.5">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-pink-500"><circle cx="12" cy="10" r="5"/><line x1="12" y1="15" x2="12" y2="22"/><line x1="9" y1="19" x2="15" y2="19"/></svg>
+                          <span className="font-medium text-foreground">Female</span>
+                        </div>
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                )}
+              />
+              {form.formState.errors.gender && (
+                <p className="text-sm text-destructive">{form.formState.errors.gender.message}</p>
               )}
             </div>
           </div>

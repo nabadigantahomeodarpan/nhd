@@ -18,6 +18,8 @@ export const patientSchema = z.object({
   mobile: z.string().trim().refine((val) => val === "" || /^[0-9]{10}$/.test(val), {
     message: "Enter a valid 10-digit mobile number or leave empty.",
   }).optional(),
+  age: z.string().trim().optional(),
+  gender: z.string().trim().optional(),
   visits: z.array(visitSchema).min(1, "At least one visit is required."),
 });
 
