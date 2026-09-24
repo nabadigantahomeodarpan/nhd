@@ -103,6 +103,7 @@ export function PatientForm({ initialData, onSubmit, isPending, onCancel }: Pati
               <Input
                 id="name"
                 placeholder="Rahul Kumar"
+                autoComplete="name"
                 {...form.register("name")}
               />
               {form.formState.errors.name && (
@@ -114,6 +115,9 @@ export function PatientForm({ initialData, onSubmit, isPending, onCancel }: Pati
               <Label htmlFor="mobile">Mobile Number</Label>
               <Input
                 id="mobile"
+                type="tel"
+                inputMode="numeric"
+                autoComplete="tel"
                 placeholder="9876543210"
                 maxLength={10}
                 {...form.register("mobile")}

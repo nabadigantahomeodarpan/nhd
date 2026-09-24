@@ -103,16 +103,16 @@ export default async function PrescriptionPage({ params }: PrescriptionPageProps
               {/* 6cm from page left edge = 5cm from content left edge (since padding-left is 1cm) */}
               <div className="absolute top-0 bottom-0 w-[1px] bg-black" style={{ left: '5cm' }}></div>
 
-              {/* Left Side Short Horizontal Line (5.5cm down) */}
-              <div className="absolute h-[1px] bg-black" style={{ top: '5.5cm', left: 0, width: '5cm' }}></div>
+              {/* Left Side Short Horizontal Line (3cm down) */}
+              <div className="absolute h-[1px] bg-black" style={{ top: '3cm', left: 0, width: '5cm' }}></div>
 
               {/* Left Side Content (Advice and Signs & Symptoms) */}
               <div className="absolute top-0 left-0 bottom-0" style={{ width: '5cm' }}>
-                {/* Top Left Container (Above 5.5cm line) */}
-                <div className="p-2 pt-4" style={{ height: '5.5cm' }}>
+                {/* Top Left Container (Above 3cm line) */}
+                <div className="p-2 pt-4" style={{ height: '3cm' }}>
                   <span className="font-bold text-[14px] text-gray-800 whitespace-nowrap">Advice :-</span>
                 </div>
-                {/* Bottom Left Container (Below 5.5cm line) */}
+                {/* Bottom Left Container (Below 3cm line) */}
                 <div className="p-2 pt-4">
                   <span className="font-bold text-[14px] text-gray-800 whitespace-nowrap">Signs & Symptoms :-</span>
                 </div>
